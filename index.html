@@ -118,7 +118,9 @@
         <div class="donate">
           <img src="img/mouse.png" alt="" />
           <p>Dentsu dol?</p>
-          <a href="https://app.motivosity.com/">daiane.oliveira@dentsu.com</a>
+          <a href="https://app.motivosity.com/" target="_blank"
+            >daiane.oliveira@dentsu.com</a
+          >
           <audio class="music" controls="false" src="/img/music.mp3"></audio>
         </div>
       </div>
@@ -147,7 +149,7 @@
 
     btnCalculate.addEventListener("click", function () {
       const img = document.createElement("img");
-      img.src = "/img/like.jpeg";
+      img.src = "img/like.jpeg";
       const s = salario.value.replace(".", "").replace(",", ".");
       const r = s * calc.d * calc.m;
 

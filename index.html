@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dissídio calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #630fb1;
+        font-size: 16px;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        font-weight: 100;
+      }
+      .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      input {
+        border-radius: 40px;
+        height: 40px;
+        width: 100%;
+        display: block;
+        border: none;
+        padding: 1rem 110px 1rem 1rem;
+        font-size: 1.4rem;
+      }
+
+      .content {
+        width: 400px;
+        max-width: 100%;
+        padding: 1rem;
+      }
+
+      .calc-area {
+        position: relative;
+      }
+
+      #result img {
+        width: 50%;
+        margin: 0 auto;
+        display: block;
+      }
+
+      .calc-area button {
+        position: absolute;
+        right: 4px;
+        top: calc(50% - 15px);
+        height: 30px;
+        width: 100px;
+        border-radius: 15px;
+        border: none;
+        background-color: #640eb170;
+        color: #ffffff;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.6rem;
+      }
+
+      .donate {
+        position: absolute;
+        bottom: -200px;
+        right: -200px;
+        transition: 2s;
+      }
+
+      .donate img {
+        width: 100px;
+        height: 100px;
+        display: block;
+      }
+      .donate audio {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .donate.active {
+        bottom: 100px;
+        right: 100px;
+      }
+      .donate a {
+        color: #ffffff;
+        font-size: 0.5rem;
+      }
+      .donate p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- salario * 0.0414 salario * 0.0475 -->
+    <main class="main">
+      <div class="content">
+        <h1>Cálculo Retroativo</h1>
+        <div class="calc-area">
+          <input type="text" name="salario" id="salario" />
+          <button id="calculate">calcular</button>
+        </div>
+
+        <div>
+          <h2>Resultado:</h2>
+          <div id="result"></div>
+        </div>
+
+        <div class="donate">
+          <img src="img/mouse.png" alt="" />
+          <p>Dentsu dol?</p>
+          <a href="https://app.motivosity.com/">daiane.oliveira@dentsu.com</a>
+          <audio class="music" controls="false" src="/img/music.mp3"></audio>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+  <script>
+    const jsConfetti = new JSConfetti();
+    const salario = document.getElementById("salario");
+    const divResult = document.getElementById("result");
+    const divDonate = document.querySelector(".donate");
+    const music = document.querySelector(".music");
+    const btnCalculate = document.getElementById("calculate");
+    const calc = {
+      d: 0.0414,
+      m: 8,
+    };
+
+    function formatSalary(value) {
+      return value.replace(/[^0-9.,]/g, "");
+    }
+
+    salario.addEventListener("input", function (e) {
+      e.target.value = formatSalary(e.target.value);
+    });
+
+    btnCalculate.addEventListener("click", function () {
+      const img = document.createElement("img");
+      img.src = "/img/like.jpeg";
+      const s = salario.value.replace(".", "").replace(",", ".");
+      const r = s * calc.d * calc.m;
+
+      const format = String(r)
+        .split(".")
+        .map((n, i) => (i === 1 ? n.substring(0, 2) : n))
+        .join();
+
+      console.log(r, format);
+      divResult.innerHTML = "";
+      divResult.innerHTML = `Tu vais receber ${format}`;
+      divResult.appendChild(img);
+
+      jsConfetti.addConfetti({
+        emojis: ["💸", "💰"],
+      });
+
+      if (!music.classList.contains("played")) {
+        music.volume = 0.4;
+        music.classList.add("played");
+        music.play();
+        divDonate.classList.contains("active")
+          ? ""
+          : divDonate.classList.add("active");
+      }
+    });
+  </script>
+</html>

@@ -174,7 +174,6 @@
         .map((n, i) => (i === 1 ? n.substring(0, 2) : n))
         .join();
 
-      console.log(r, format);
       divResult.innerHTML = "";
       divResult.innerHTML = `Tu vais receber <b>R$${format}</b>`;
       divResult.appendChild(img);

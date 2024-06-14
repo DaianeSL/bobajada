@@ -106,7 +106,12 @@
       <div class="content">
         <h1>Cálculo Retroativo</h1>
         <div class="calc-area">
-          <input type="text" name="salario" id="salario" />
+          <input
+            type="text"
+            name="salario"
+            id="salario"
+            placeholder="Teu salario aqui"
+          />
           <button id="calculate">calcular</button>
         </div>
 
@@ -148,6 +153,13 @@
     });
 
     btnCalculate.addEventListener("click", function () {
+      if (salario.value == "0" || salario.value == "" || !salario.value) {
+        divResult.innerHTML = "";
+        divResult.innerHTML = `Bah, mas daí tu esqueceu de colocar teu salario ali em cima né`;
+
+        return;
+      }
+
       const img = document.createElement("img");
       img.src = "img/like.jpeg";
       const s = salario.value.replace(".", "").replace(",", ".");

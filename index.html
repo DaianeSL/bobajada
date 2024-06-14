@@ -202,6 +202,7 @@
     const divDonate = document.querySelector(".donate");
     const music = document.querySelector(".music");
     const btnCalculate = document.getElementById("calculate");
+    const audioWhataheeeel = new Audio("img/what.mp3");
     const calc = {
       d: 0.0414,
       m: 8,
@@ -216,9 +217,24 @@
     });
 
     btnCalculate.addEventListener("click", function () {
+      audioWhataheeeel.pause();
+
       if (salario.value == "0" || salario.value == "" || !salario.value) {
         divResult.innerHTML = "";
         divResult.innerHTML = `Bah, mas daí tu esqueceu de colocar teu salario ali em cima né`;
+      }
+
+      if (salario.value === "69" || salario.value === "6969") {
+        divResult.innerHTML = "";
+        divResult.innerHTML = `??????`;
+
+        const img = document.createElement("img");
+        img.src = "img/suspicious.gif";
+        divResult.appendChild(img);
+
+        audioWhataheeeel.volume = 0.2;
+        audioWhataheeeel.currentTime = 0;
+        audioWhataheeeel.play();
 
         return;
       }
@@ -242,7 +258,7 @@
       });
 
       if (!music.classList.contains("played")) {
-        music.volume = 0.2;
+        music.volume = 0.1;
         music.classList.add("played");
         music.play();
         divDonate.classList.contains("active")

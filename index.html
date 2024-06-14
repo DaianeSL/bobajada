@@ -15,6 +15,15 @@
       * {
         box-sizing: border-box;
       }
+
+      @keyframes pulse {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.1);
+        }
+      }
       body {
         background-color: #630fb1;
         font-size: 16px;
@@ -114,6 +123,26 @@
       h2 {
         font-size: 1.1rem;
       }
+
+      h2 span {
+        animation: pulse 1s infinite alternate;
+        display: inline-block;
+      }
+
+      .ciro-pray {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+      }
+      .miudas {
+        font-size: 0.7rem;
+      }
+
+      .miudas span {
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
@@ -132,8 +161,21 @@
         </div>
 
         <div>
-          <h2>Resultado (SEM DESCONTOS *TODO*):</h2>
+          <h2>Resultado <span>(SEM DESCONTOS)</span>:</h2>
+
           <div id="result"></div>
+
+          <p class="miudas">
+            <span>letras miúdas que devem ser lidas:</span> Este é um valor
+            aproximado para você, Dwsiane, que já está contratada há 8 meses.
+            <br /><b>Informações corretas serão disponibilizadas no dia 21</b>
+            nos contracheques disponibilizados pela ADP.
+            <img
+              class="ciro-pray"
+              src="img/ciro-pray.jpeg"
+              alt="Ciro praying"
+            />
+          </p>
         </div>
 
         <div class="donate">
@@ -179,7 +221,7 @@
       const img = document.createElement("img");
       img.src = "img/like.jpeg";
       const s = salario.value.replace(".", "").replace(",", ".");
-      const r = s * calc.d * calc.m;
+      const r = s * calc.d * calc.m + (s / 12) * 8;
 
       const format = String(r)
         .split(".")
@@ -187,7 +229,7 @@
         .join();
 
       divResult.innerHTML = "";
-      divResult.innerHTML = `Tu vais receber <b>R$${format}</b>`;
+      divResult.innerHTML = `Tu vais receber aí mais ou menos uns <b>R$${format}</b>`;
       divResult.appendChild(img);
 
       jsConfetti.addConfetti({
@@ -195,7 +237,7 @@
       });
 
       if (!music.classList.contains("played")) {
-        music.volume = 0.4;
+        music.volume = 0.2;
         music.classList.add("played");
         music.play();
         divDonate.classList.contains("active")
